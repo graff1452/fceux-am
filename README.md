@@ -1,29 +1,45 @@
-# FCEUX
+# fceux-am
 
-Nintendo Entertainment System模拟器, 可以正确运行大多数ROM.
-移植自 https://github.com/TASVideos/fceux ,
-git commit版本为`ed4f5d0000e17b6ae88c4e93e2f9e0695dbceac0`.
+Personal backup fork of [NJU-ProjectN/fceux-am](https://github.com/NJU-ProjectN/fceux-am)
+(branch `ics2021`) — an NES emulator (FCEUX) ported to run on top of AM.
 
-本项目将其移植到[AM](https://github.com/NJU-ProjectN/abstract-machine)环境中,
-完整程度不同的IOE可以支持不同的功能:
-* 只有时钟: 可通过注释`src/config.h`中的`HAS_GUI`宏来运行字符模式
-* 添加键盘: 可在字符模式下操作
-* 添加绘图: 可运行图形模式
-* 添加声音: 可播放游戏音效
+Unmodified from upstream. Kept here purely so it's available on any machine without
+depending on the upstream repo staying reachable.
 
-## 运行方式
+This repo is meant to be cloned **inside** an `ysyx-workbench/` checkout (see
+[OSOC](https://github.com/graff1452/OSOC)), since it builds against AM via `$AM_HOME`.
 
-将游戏ROM放置在`nes/rom/`目录下, 并命名为`xxx.nes`, 如`nes/rom/mario.nes`.
-然后可通过`mainargs`选择运行的游戏, 如:
-```
-make ARCH=native run mainargs=mario
+## Setup
+
+```bash
+git clone git@github.com:graff1452/fceux-am.git
 ```
 
-## 操作方式
+## ROM files are NOT included
 
-* U — SELECT
-* I — START
-* J — A键
-* K — B键
-* W/S/A/D — UP/DOWN/LEFT/RIGHT
-* Q — 退出
+`nes/rom/` is gitignored, deliberately — ROM files are copyrighted game content and
+should never be committed to a public repo (that's how upstream ships it too). To run
+a game, place a legally-obtained `.nes` file at:
+
+```
+fceux-am/nes/rom/<name>.nes
+```
+
+## Running
+
+```bash
+make ARCH=native run mainargs=<name>
+```
+(where `<name>` matches the ROM filename without `.nes`, e.g. `mainargs=mario` for
+`nes/rom/mario.nes`)
+
+## Controls
+
+| Key | Action |
+|---|---|
+| W/S/A/D | D-pad (Up/Down/Left/Right) |
+| J | A button |
+| K | B button |
+| U | Select |
+| I | Start |
+| Q | Quit |
